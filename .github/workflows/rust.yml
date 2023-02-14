@@ -12,7 +12,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -20,8 +20,7 @@ jobs:
         run: |
           sudo apt-get install coinor-cbc coinor-libcbc-dev libgsl-dev
           rustup component add rustfmt
-          wget --quiet --no-check-certificate https://scipopt.org/download/release/SCIPOptSuite-8.0.3-Linux-ubuntu.deb
-          sudo apt-get update && sudo apt install -y ./SCIPOptSuite-8.0.3-Linux-ubuntu.deb
+          conda install -y --channel conda-forge scip
       - name: Build
         run: cargo build --all-features --tests
       - name: Run tests # test on a single thread. See: https://github.com/KardinalAI/coin_cbc/issues/9
